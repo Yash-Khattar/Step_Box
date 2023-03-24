@@ -16,17 +16,12 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    var goalValue = 6000;
-    double steps = 3250;
+    var goalValue = 3000;
+    double steps = 0;
     double percentage = 0.0;
     double calories = 0;
     double distance = 0;
     double duration = 0;
-
-    double getPercentage() {
-      percentage = steps / goalValue;
-      return percentage;
-    }
 
     return Consumer<PedometerProvider>(
       builder: (context, PedometerModel, child) {
@@ -39,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.all(15.0),
                 child: CircularPercentIndicator(
                   radius: 80,
-                  percent: getPercentage(),
+                  percent: (PedometerModel.pedometerData[0] / goalValue),
                   lineWidth: 10,
                   progressColor: kblackColor,
                   animation: true,

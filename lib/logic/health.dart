@@ -5,8 +5,10 @@ import 'package:provider/provider.dart';
 class Health {
   HealthFactory health = HealthFactory();
 
-  void getPermissions() {
-    Permission.activityRecognition.request();
+  void getPermissions() async {
+    if (await Permission.activityRecognition.request().isGranted == false) {
+      await Permission.activityRecognition.request();
+    }
   }
 
   Future<List> fetchData() async {
