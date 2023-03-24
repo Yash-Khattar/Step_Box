@@ -5,6 +5,8 @@ import 'package:step_box/screens/home_screen.dart';
 import 'package:step_box/screens/signup_screen.dart';
 import 'package:step_box/screens/bottom_nav.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
+import 'providers.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,20 +19,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Step Box',
-      theme: ThemeData(
-        fontFamily: 'Ubuntu',
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: ((context) => PedometerProvider())),
+      ],
+      child: MaterialApp(
+        title: 'Step Box',
+        theme: ThemeData(
+          fontFamily: 'Ubuntu',
+        ),
+        initialRoute: WelcomeScreen.id,
+        routes: {
+          WelcomeScreen.id: (context) => WelcomeScreen(),
+          LoginScreen.id: (context) => LoginScreen(),
+          SignupScreen.id: (context) => SignupScreen(),
+          HomeScreen.id: (context) => HomeScreen(),
+          BotttomNavigation.id: (context) => BotttomNavigation(),
+        },
+        debugShowCheckedModeBanner: false,
       ),
-      initialRoute: WelcomeScreen.id,
-      routes: {
-        WelcomeScreen.id: (context) => WelcomeScreen(),
-        LoginScreen.id: (context) => LoginScreen(),
-        SignupScreen.id: (context) => SignupScreen(),
-        HomeScreen.id: (context) => HomeScreen(),
-        BotttomNavigation.id: (context) => BotttomNavigation(),
-      },
-      debugShowCheckedModeBanner: false,
     );
   }
 }

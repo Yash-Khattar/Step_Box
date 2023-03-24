@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:step_box/const.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-// import 'dart:async';
-// import 'package:pedometer/pedometer.dart';
+import 'package:step_box/providers.dart';
 
 class HomeScreen extends StatefulWidget {
   static String id = 'home_screen';
@@ -28,104 +28,109 @@ class _HomeScreenState extends State<HomeScreen> {
       return percentage;
     }
 
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: CircularPercentIndicator(
-              radius: 80,
-              percent: getPercentage(),
-              lineWidth: 10,
-              progressColor: kblackColor,
-              animation: true,
-              circularStrokeCap: CircularStrokeCap.round,
-              center: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(steps.toInt().toString(), style: kStepCounterText),
-                  const Text('Steps'),
-                ],
+    return Consumer<PedometerProvider>(
+      builder: (context, PedometerModel, child) {
+        return Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: CircularPercentIndicator(
+                  radius: 80,
+                  percent: getPercentage(),
+                  lineWidth: 10,
+                  progressColor: kblackColor,
+                  animation: true,
+                  circularStrokeCap: CircularStrokeCap.round,
+                  center: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(PedometerModel.pedometerData[0].toString(),
+                          style: kStepCounterText),
+                      const Text('Steps'),
+                    ],
+                  ),
+                ),
               ),
-            ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Text(
+                  'Goal : $goalValue',
+                  style: kGoalText,
+                ),
+              ),
+              InfoTile(title: "Calories", value: calories),
+              InfoTile(title: "Duration", value: duration),
+              InfoTile(title: "Distance", value: distance),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //   children: [
+              //     Column(
+              //       children: [
+              //         const Padding(
+              //           padding: EdgeInsets.all(8.0),
+              //           child: Text('Calories', style: kCDDHeadText),
+              //         ),
+              //         Text('$calories', style: kCDDSubText),
+              //       ],
+              //     ),
+              //     const SizedBox(
+              //       height: 40,
+              //       width: 3,
+              //       child: DecoratedBox(
+              //           decoration: BoxDecoration(
+              //         color: kblackColor,
+              //       )),
+              //     ),
+              //     Column(
+              //       children: [
+              //         const Padding(
+              //           padding: EdgeInsets.all(8.0),
+              //           child: Text('Disatnce', style: kCDDHeadText),
+              //         ),
+              //         Text('$distance', style: kCDDSubText),
+              //       ],
+              //     ),
+              //     const SizedBox(
+              //       height: 40,
+              //       width: 3,
+              //       child: DecoratedBox(
+              //           decoration: BoxDecoration(
+              //         color: kblackColor,
+              //       )),
+              //     ),
+              //     Column(
+              //       children: [
+              //         const Padding(
+              //           padding: EdgeInsets.all(8.0),
+              //           child: Text('Duration', style: kCDDHeadText),
+              //         ),
+              //         Text('$duration', style: kCDDSubText),
+              //       ],
+              //     ),
+              //   ],
+              // ),
+              // Expanded(
+              //   child: Padding(
+              //     padding: const EdgeInsets.only(top: 40),
+              //     child: Container(
+              //       decoration: const BoxDecoration(
+              //         color: kblackColor,
+              //         borderRadius: BorderRadius.only(
+              //           topLeft: Radius.circular(30),
+              //           topRight: Radius.circular(30),
+              //         ),
+              //       ),
+              //       child: null,
+              //     ),
+              //   ),
+              // ),
+            ],
           ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Text(
-              'Goal : $goalValue',
-              style: kGoalText,
-            ),
-          ),
-          InfoTile(title: "Calories", value: calories),
-          InfoTile(title: "Duration", value: duration),
-          InfoTile(title: "Distance", value: distance),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //   children: [
-          //     Column(
-          //       children: [
-          //         const Padding(
-          //           padding: EdgeInsets.all(8.0),
-          //           child: Text('Calories', style: kCDDHeadText),
-          //         ),
-          //         Text('$calories', style: kCDDSubText),
-          //       ],
-          //     ),
-          //     const SizedBox(
-          //       height: 40,
-          //       width: 3,
-          //       child: DecoratedBox(
-          //           decoration: BoxDecoration(
-          //         color: kblackColor,
-          //       )),
-          //     ),
-          //     Column(
-          //       children: [
-          //         const Padding(
-          //           padding: EdgeInsets.all(8.0),
-          //           child: Text('Disatnce', style: kCDDHeadText),
-          //         ),
-          //         Text('$distance', style: kCDDSubText),
-          //       ],
-          //     ),
-          //     const SizedBox(
-          //       height: 40,
-          //       width: 3,
-          //       child: DecoratedBox(
-          //           decoration: BoxDecoration(
-          //         color: kblackColor,
-          //       )),
-          //     ),
-          //     Column(
-          //       children: [
-          //         const Padding(
-          //           padding: EdgeInsets.all(8.0),
-          //           child: Text('Duration', style: kCDDHeadText),
-          //         ),
-          //         Text('$duration', style: kCDDSubText),
-          //       ],
-          //     ),
-          //   ],
-          // ),
-          // Expanded(
-          //   child: Padding(
-          //     padding: const EdgeInsets.only(top: 40),
-          //     child: Container(
-          //       decoration: const BoxDecoration(
-          //         color: kblackColor,
-          //         borderRadius: BorderRadius.only(
-          //           topLeft: Radius.circular(30),
-          //           topRight: Radius.circular(30),
-          //         ),
-          //       ),
-          //       child: null,
-          //     ),
-          //   ),
-          // ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
