@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:step_box/const.dart';
+import 'package:step_box/logic/health.dart';
+import 'package:step_box/providers.dart';
 import 'package:step_box/screens/home_screen.dart';
 import 'package:step_box/screens/stats_screen.dart';
 import 'package:step_box/screens/userProfile_screen.dart';
@@ -25,6 +28,16 @@ class _BotttomNavigationState extends State<BotttomNavigation> {
     setState(() {
       currentIndex = index;
     });
+  }
+
+  final _health = Health();
+
+  @override
+  void initState() {
+    final PedometerModel =
+        Provider.of<PedometerProvider>(context, listen: false);
+    PedometerModel.getPermissions();
+    PedometerModel.getData();
   }
 
   @override

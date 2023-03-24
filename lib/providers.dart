@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:step_box/logic/health.dart';
 
 class PedometerProvider extends ChangeNotifier {
-  List pedometerData = [1, 1];
+  Map pedometerDataMap = {"steps": 1, "calories": 1};
   final _health = Health();
   void getPermissions() {
     _health.getPermissions();
@@ -10,7 +10,7 @@ class PedometerProvider extends ChangeNotifier {
   }
 
   Future<void> getData() async {
-    pedometerData = await _health.fetchData();
+    pedometerDataMap = await _health.fetchData();
     notifyListeners();
   }
 }

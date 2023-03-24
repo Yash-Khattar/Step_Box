@@ -6,12 +6,12 @@ class Health {
   HealthFactory health = HealthFactory();
 
   void getPermissions() async {
-    if (await Permission.activityRecognition.request().isGranted == false) {
-      await Permission.activityRecognition.request();
-    }
+    // if (await Permission.activityRecognition.request().isGranted == false) {
+    await Permission.activityRecognition.request();
+    // }
   }
 
-  Future<List> fetchData() async {
+  Future<Map> fetchData() async {
     var types = [
       HealthDataType.STEPS,
       HealthDataType.ACTIVE_ENERGY_BURNED,
@@ -37,6 +37,6 @@ class Health {
       steps = 5;
     }
     print(steps);
-    return [steps, steps];
+    return {"steps": steps, "calories": steps};
   }
 }

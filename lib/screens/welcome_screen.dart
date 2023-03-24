@@ -41,8 +41,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         buttonColor: Colors.white,
                         textColor: kblackColor,
                         onPressed: () {
-                          PedometerModel.getPermissions();
-                          PedometerModel.getData();
+                          // PedometerModel.getPermissions();
+                          // PedometerModel.getData();
                           Navigator.pushNamed(context, SignupScreen.id);
                         }),
                     RegistrationButton(
@@ -50,8 +50,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         buttonColor: Colors.white,
                         textColor: kblackColor,
                         onPressed: () {
-                          PedometerModel.getPermissions();
-                          PedometerModel.getData();
+                          // PedometerModel.getPermissions();
+                          // PedometerModel.getData();
                           Navigator.pushNamed(context, LoginScreen.id);
                         }),
                   ],

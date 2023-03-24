@@ -5,18 +5,20 @@ import 'package:step_box/screens/home_screen.dart';
 import 'package:step_box/screens/signup_screen.dart';
 import 'package:step_box/screens/bottom_nav.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'providers.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
 
+  final user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -28,7 +30,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           fontFamily: 'Ubuntu',
         ),
-        initialRoute: WelcomeScreen.id,
+        initialRoute: user == null ? WelcomeScreen.id : BotttomNavigation.id,
         routes: {
           WelcomeScreen.id: (context) => WelcomeScreen(),
           LoginScreen.id: (context) => LoginScreen(),

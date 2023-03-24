@@ -34,7 +34,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.all(15.0),
                 child: CircularPercentIndicator(
                   radius: 80,
-                  percent: (PedometerModel.pedometerData[0] / goalValue),
+                  percent:
+                      (PedometerModel.pedometerDataMap['steps'] / goalValue),
                   lineWidth: 10,
                   progressColor: kblackColor,
                   animation: true,
@@ -42,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   center: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(PedometerModel.pedometerData[0].toString(),
+                      Text(PedometerModel.pedometerDataMap['steps'].toString(),
                           style: kStepCounterText),
                       const Text('Steps'),
                     ],
